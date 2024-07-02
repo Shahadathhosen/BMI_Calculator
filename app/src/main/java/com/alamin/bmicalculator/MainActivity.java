@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,19 +46,33 @@ public class MainActivity extends AppCompatActivity {
                 String sFeet = edFeet.getText().toString();
                 String sInch = edInch.getText().toString();
 
-                float weigth = Float.parseFloat(sWeight);
-                float feet = Float.parseFloat(sFeet);
-                float inch = Float.parseFloat(sInch);
+                if (sWeight.length() >0 && sFeet.length() >0 && sInch.length() >0 ) {
 
-                float height = (float) (feet*0.3048 + inch*0.0254);
-
-                float bmiIndex = weigth / (height*height);
-
-                txtDisplay.setText("Your BMI Index is : " + bmiIndex);
+                    float weigth = Float.parseFloat(sWeight);
+                    float feet = Float.parseFloat(sFeet);
+                    float inch = Float.parseFloat(sInch);
 
 
+                    float height = (float) (feet * 0.3048 + inch * 0.0254);
+                    float bmiIndex = weigth / (height * height);
 
+                    if (bmiIndex < 18.5) {
+                        Toast.makeText(MainActivity.this, "Under Weight", Toast.LENGTH_SHORT).show();
+                        txtDisplay.setText("Bmi is : " + bmiIndex);
+                    } else if (bmiIndex < 24.5) {
+                        Toast.makeText(MainActivity.this, "Normal", Toast.LENGTH_SHORT).show();
+                        txtDisplay.setText("Bmi is : " + bmiIndex);
+                    } else if (bmiIndex < 30) {
+                        Toast.makeText(MainActivity.this, "Over Weight", Toast.LENGTH_SHORT).show();
+                        txtDisplay.setText("Bmi is : " + bmiIndex);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Obese", Toast.LENGTH_SHORT).show();
+                        txtDisplay.setText("Bmi is : " + bmiIndex);
+                    }
 
+                }else {
+                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
